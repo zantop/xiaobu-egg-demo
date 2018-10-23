@@ -5,14 +5,8 @@
  */
 module.exports = app => {
   const { router, controller } = app;
-  router.resources('user', '/api/user', controller.restful);
+  router.resources('user', '/api/user', controller.user);
   router.get('/', controller.home.index);
-  // user
-  router.get('/user/getUserById', controller.user.getUserById);
-  router.post('/user/login', controller.user.login);
-  router.post('/user/register', controller.user.register);
-  router.post('/user/update', controller.user.update);
-  router.post('/user/delete', controller.user.delete);
   // 登录页面
   router.get('/login', controller.demo.login);
   // 注册

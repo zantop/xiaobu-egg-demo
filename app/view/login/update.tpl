@@ -58,8 +58,8 @@
     });
     $('#submit').click(function () {
       $.ajax({
-        url: '/user/update',
-        type: 'POST',
+        url: '/api/user',
+        type: 'PUT',
         data: {
           id:$("#id").val(),
           username: $('#username').val(),

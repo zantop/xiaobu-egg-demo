@@ -20,8 +20,8 @@ exports.security = {
   enable: false,
 };
 
-// egg-validate
-exports.validate = {
+// egg-valid
+exports.valid = {
   enable: true,
-  package: 'egg-validate',
+  package: 'egg-valid',
 };

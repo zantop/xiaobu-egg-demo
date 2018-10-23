@@ -2,52 +2,64 @@
 
 const Service = require('egg').Service;
 
-class UserService extends Service {
+class RestfulService extends Service {
+
   /**
-   * 获取用户信息
-   * @param {Number} user_id - 用户id
-   * @return {Object} - 返回用户信息
+   * 判断用户名是否已存在
+   * @description 存在返回用户信息，不存在返回false
+   * @param {String} username - 用户名
+   * @return {Object} - 返回用户信息 / false 没有注册
    */
-  async userInfo(user_id) {
+  async isExist(username) {
     const user = await this.ctx.model.User.findOne({
       where: {
-        id: user_id,
-      },
-    });
-    if (!user) {
-      this.ctx.throw(404, '用户不存在');
-    }
-    console.log(user);
-    return user;
-  }
-  /**
-   * 登录
-   * @param {String} username - 用户名
-   * @param {String} password - 密码
-   * @return {Object} - 返回用户信息
-   */
-  async login(username, password) {
-    const user = await this.ctx.model.User.findAll({
-      where: {
         username,
-        password,
       },
     });
-    if (!user) {
-      this.ctx.throw(404, '用户名或密码错误');
+    if (user) {
+      return user;
     }
-    return user;
+    return false;
   }
+
   /**
    * 注册
    * @param {String} username - 用户名
    * @param {String} password - 密码
    * @return {Object} - 返回用户信息
    */
-  async register(username, password) {
+  async create(username, password) {
     const user = await this.ctx.model.User.create({
       username,
       password,
+    });
+    return user;
+  }
+
+  /**
+   * 根据id获取用户信息
+   * @param {Number} id - 用户id
+   * @return {Object} - 返回用户信息
+   */
+  async getUser(id) {
+    const user = await this.ctx.model.User.findOne({
+      where: {
+        id,
+      },
+    });
+    return user;
+  }
+
+  /**
+   * 删除用户
+   * @param {Number} id - 用户id
+   * @return {Object} - 返回用户信息
+   */
+  async delete(id) {
+    const user = await this.ctx.model.User.destroy({
+      where: {
+        id,
+      },
     });
     return user;
   }
@@ -67,24 +79,14 @@ class UserService extends Service {
         id,
       },
     });
-    console.log(user);
     return user;
   }
-
-  /**
-   * 删除用户
-   * @param {Number} id - 用户id
-   * @return {Object} - 返回用户信息
-   */
-  async delete(id) {
-    const user = await this.ctx.model.User.destroy({
-      where: {
-        id,
-      },
-    });
-    console.log(user);
-    return user;
+  // 封装统一的调用检查函数，可以在查询、创建和更新等 Service 中复用
+  checkSuccess(result) {
+    if (!result) {
+      this.ctx.throw(result, 'sql错误');
+    }
   }
 }
 
-module.exports = UserService;
+module.exports = RestfulService;

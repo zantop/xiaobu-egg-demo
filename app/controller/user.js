@@ -1,33 +1,105 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+// 继承自base_controller
+const Controller = require('../core/base_controller');
 
-class UserController extends Controller {
-  async getUserById() {
-    const id = this.ctx.query.id;
-    const res = await this.ctx.service.user.userInfo(id);
-    this.ctx.body = res;
+class TopicController extends Controller {
+  // 查
+  async index() {
+    const { ctx } = this;
+    const { user } = ctx.service;
+    const id = ctx.query.id;
+    // 定义创建接口的请求参数规则
+    const rule = {
+      id: 'required',
+    };
+    const messages = {
+      'id.required': '没有id',
+    };
+    const validator = await this.validator(ctx.query, rule, messages);
+    if (validator) {
+      const res = await user.getUser(id);
+      res ? this.success(res, '获取成功') : this.error(null, '获取失败');
+    }
   }
-  async login() {
-    const { username, password } = this.ctx.request.body;
-    const res = await this.ctx.service.user.login(username, password);
-    this.ctx.body = res;
+
+  // 增
+  async create() {
+    const { ctx } = this;
+    const { user } = ctx.service;
+    const rule = {
+      username: 'required|phone',
+      password: {
+        password: {
+          min: 6,
+          max: 18,
+        },
+      },
+    };
+    // 校验 `ctx.request.body` 是否符合我们预期的格式
+    const messages = {
+      'username.required': '必须填写手机号',
+      'username.phone': '请输入一个正确的手机号',
+      'password.password': '密码太简单了',
+    };
+    const validator = await this.validator(ctx.query, rule, messages);
+    // 调用 service 创建User
+    if (validator) {
+      const isExist = await user.isExist(ctx.request.body.username);
+      if (isExist) {
+        // 用户名已存在报错
+        this.error(null, '用户名已存在');
+      } else {
+        const { username, password } = ctx.request.body;
+        const res = await user.create(username, password);
+        res ? this.success(res, '注册成功') : this.error(null, '未知错误');
+      }
+    }
   }
-  async register() {
-    const { username, password } = this.ctx.request.body;
-    const res = await this.ctx.service.user.register(username, password);
-    this.ctx.body = res;
-  }
+
+  // 改
   async update() {
-    const { username, password, id } = this.ctx.request.body;
-    const res = await this.ctx.service.user.update(username, password, id);
-    this.ctx.body = res;
+    const { ctx } = this;
+    const { user } = ctx.service;
+    const rule = {
+      id: 'required',
+      username: 'required|phone',
+      password: {
+        password: {
+          min: 6,
+          max: 18,
+        },
+      },
+    };
+    const messages = {
+      'id.required': '没有id',
+      'username.phone': '请输入一个正确的手机号',
+      'password.password': '密码太简单了',
+    };
+    const validator = await this.validator(ctx.query, rule, messages);
+    if (validator) {
+      const { username, password, id } = this.ctx.request.body;
+      const res = await user.update(username, password, id);
+      res ? this.success(null, '修改成功') : this.error(null, '修改失败');
+    }
   }
-  async delete() {
-    const { id } = this.ctx.request.body;
-    const res = await this.ctx.service.user.delete(id);
-    this.ctx.body = res;
+
+  // 删
+  async destroy() {
+    const { ctx } = this;
+    const { user } = ctx.service;
+    const id = ctx.query.id;
+    const rule = {
+      id: 'required',
+    };
+    const messages = {
+      'id.required': '没有id',
+    };
+    const validator = await this.validator(ctx.query, rule, messages);
+    if (validator) {
+      const res = await user.delete(id);
+      res ? this.success(null, '删除成功') : this.error(null, '删除失败');
+    }
   }
 }
-
-module.exports = UserController;
+module.exports = TopicController;
