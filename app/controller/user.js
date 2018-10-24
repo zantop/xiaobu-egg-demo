@@ -3,7 +3,7 @@
 // 继承自base_controller
 const Controller = require('../core/base_controller');
 
-class TopicController extends Controller {
+class UserController extends Controller {
   // 查
   async index() {
     const { ctx } = this;
@@ -47,7 +47,6 @@ class TopicController extends Controller {
     if (validator) {
       const { username, password } = ctx.request.body;
       const res = await user.create(username, password);
-      console.log('ressssssssssssssssssssssssss', res.message);
       res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
@@ -117,4 +116,4 @@ class TopicController extends Controller {
     }
   }
 }
-module.exports = TopicController;
+module.exports = UserController;
