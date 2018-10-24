@@ -57,7 +57,7 @@
     });
     $('#submit').click(function () {
       $.ajax({
-        url: '/user/login',
+        url: '/login',
         type: 'POST',
         data: {
           username: $('#username').val(),

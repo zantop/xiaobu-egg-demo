@@ -31,6 +31,22 @@ class BaseController extends Controller {
     };
   }
   /**
+   * 请求并携带token
+   * @param {Object} data - 返回数据
+   * @param {String} token - Token
+   * @param {String} msg - message信息
+   */
+  successToken(data, token, msg) {
+    const message = msg || null;
+    this.ctx.body = {
+      state: 'success',
+      code: 200,
+      token,
+      message,
+      data,
+    };
+  }
+  /**
    * 参数校验
    * @param {Object} params - 传递过来参数对象
    * @param {Object} rule - 验证对象

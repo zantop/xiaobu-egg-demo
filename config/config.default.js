@@ -4,7 +4,12 @@ module.exports = appInfo => {
   const config = exports = {};
 
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1539676803507_7400';
+  config.keys = appInfo.name + '_xiaobuData';
+
+  // token凭证
+  exports.jwt = {
+    secret: 'xiaobuData',
+  };
 
   config.middleware = [ 'errorHandler' ];
 
@@ -30,6 +35,19 @@ module.exports = appInfo => {
       freezeTableName: true,
     },
     timezone: '+08:00',
+  };
+
+  // 关闭安全威胁csrf的防范
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+
+  // 解决跨域
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
   return config;
 };
