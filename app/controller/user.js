@@ -19,7 +19,7 @@ class TopicController extends Controller {
     const validator = await this.validator(ctx.query, rule, messages);
     if (validator) {
       const res = await user.getUser(id);
-      res ? this.success(res, '获取成功') : this.error(null, '获取失败');
+      res ? this.success(res.data, '获取成功') : this.error(null, '获取失败');
     }
   }
 
@@ -42,18 +42,13 @@ class TopicController extends Controller {
       'username.phone': '请输入一个正确的手机号',
       'password.password': '密码太简单了',
     };
-    const validator = await this.validator(ctx.query, rule, messages);
+    const validator = await this.validator(ctx.request.body, rule, messages);
     // 调用 service 创建User
     if (validator) {
-      const isExist = await user.isExist(ctx.request.body.username);
-      if (isExist) {
-        // 用户名已存在报错
-        this.error(null, '用户名已存在');
-      } else {
-        const { username, password } = ctx.request.body;
-        const res = await user.create(username, password);
-        res ? this.success(res, '注册成功') : this.error(null, '未知错误');
-      }
+      const { username, password } = ctx.request.body;
+      const res = await user.create(username, password);
+      console.log('ressssssssssssssssssssssssss', res.message);
+      res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
 
@@ -76,11 +71,11 @@ class TopicController extends Controller {
       'username.phone': '请输入一个正确的手机号',
       'password.password': '密码太简单了',
     };
-    const validator = await this.validator(ctx.query, rule, messages);
+    const validator = await this.validator(ctx.request.body, rule, messages);
     if (validator) {
       const { username, password, id } = this.ctx.request.body;
       const res = await user.update(username, password, id);
-      res ? this.success(null, '修改成功') : this.error(null, '修改失败');
+      res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
 
@@ -88,17 +83,37 @@ class TopicController extends Controller {
   async destroy() {
     const { ctx } = this;
     const { user } = ctx.service;
-    const id = ctx.query.id;
+    const id = ctx.request.body.id;
     const rule = {
       id: 'required',
     };
     const messages = {
       'id.required': '没有id',
     };
-    const validator = await this.validator(ctx.query, rule, messages);
+    const validator = await this.validator(ctx.request.body, rule, messages);
     if (validator) {
       const res = await user.delete(id);
-      res ? this.success(null, '删除成功') : this.error(null, '删除失败');
+      res.state ? this.success(res.data, res.message) : this.error(null, res.message);
+    }
+  }
+  // 分页
+  async show() {
+    const { ctx } = this;
+    const { user } = ctx.service;
+    const { page, pageSize } = ctx.query;
+    // 定义创建接口的请求参数规则
+    const rule = {
+      page: 'required',
+      pageSize: 'required',
+    };
+    const messages = {
+      'page.required': '请传page',
+      'pageSize.required': '请传pageSize',
+    };
+    const validator = await this.validator(ctx.query, rule, messages);
+    if (validator) {
+      const res = await user.getUserByPage(page, pageSize);
+      res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
 }

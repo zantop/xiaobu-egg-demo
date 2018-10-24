@@ -1,9 +1,8 @@
 'use strict';
 
-const Service = require('egg').Service;
+const Service = require('../core/base_service');
 
 class RestfulService extends Service {
-
   /**
    * 判断用户名是否已存在
    * @description 存在返回用户信息，不存在返回false
@@ -29,11 +28,15 @@ class RestfulService extends Service {
    * @return {Object} - 返回用户信息
    */
   async create(username, password) {
+    const isExist = await this.isExist(username);
+    if (isExist) {
+      return this.error('该手机号已被注册');
+    }
     const user = await this.ctx.model.User.create({
       username,
       password,
     });
-    return user;
+    return this.success(user, '注册成功');
   }
 
   /**
@@ -61,7 +64,7 @@ class RestfulService extends Service {
         id,
       },
     });
-    return user;
+    return this.success(user, '删除成功');
   }
   /**
    * 修改账号密码
@@ -71,6 +74,10 @@ class RestfulService extends Service {
    * @return {Object} - 返回用户信息
    */
   async update(username, password, id) {
+    const isExist = await this.isExist(username);
+    if (isExist) {
+      return this.error('该手机号已存在');
+    }
     const user = await this.ctx.model.User.update({
       username,
       password,
@@ -79,13 +86,24 @@ class RestfulService extends Service {
         id,
       },
     });
-    return user;
+    return this.success(user, '修改成功');
   }
-  // 封装统一的调用检查函数，可以在查询、创建和更新等 Service 中复用
-  checkSuccess(result) {
-    if (!result) {
-      this.ctx.throw(result, 'sql错误');
+  /**
+   * 分页查询
+   * @param {Number} page - 页
+   * @param {Number} pageSize - 每页容量
+   * @return {Object} - 返回用户列表
+   */
+  async getUserByPage(page, pageSize) {
+    const users = await this.ctx.model.User.findAndCountAll({
+      limit: pageSize,
+      offset: (page - 1) * pageSize,
+      where: {},
+    });
+    if (users.rows.length > 0) {
+      return this.success(users, '查询成功');
     }
+    return this.error('没有找到用户');
   }
 }
 

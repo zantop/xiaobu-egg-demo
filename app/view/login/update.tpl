@@ -58,7 +58,7 @@
     });
     $('#submit').click(function () {
       $.ajax({
-        url: '/api/user',
+        url: '/api/user/:id',
         type: 'PUT',
         data: {
           id:$("#id").val(),

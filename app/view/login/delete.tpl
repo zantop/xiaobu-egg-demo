@@ -56,8 +56,8 @@
     });
     $('#submit').click(function () {
       $.ajax({
-        url: '/user/delete',
-        type: 'POST',
+        url: 'api/user/:id',
+        type: 'DELETE',
         data: {
           id: $('#id').val(),
         },

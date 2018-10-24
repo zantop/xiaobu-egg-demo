@@ -28,8 +28,8 @@ module.exports = appInfo => {
     password: 'xz147112',
     define: {
       freezeTableName: true,
-      underscored: false,
     },
+    timezone: '+08:00',
   };
   return config;
 };
