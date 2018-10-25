@@ -20,7 +20,6 @@ class RestfulService extends Service {
     }
     return false;
   }
-
   /**
    * 注册
    * @param {String} username - 用户名
