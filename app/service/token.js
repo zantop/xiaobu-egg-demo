@@ -26,7 +26,7 @@ class TokenServer extends Service {
       return result;
     } catch (error) {
       console.log(error);
-      return error;
+      return false;
     }
   }
 }

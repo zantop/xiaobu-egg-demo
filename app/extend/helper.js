@@ -22,7 +22,6 @@ exports.getAccessToken = ctx => {
 exports.verifyToken = async (ctx, userId) => {
   const token = this.getAccessToken(ctx);
   const verifyResult = await ctx.service.token.verifyToken(token);
-  console.log(verifyResult);
   if (!verifyResult) {
     return {
       state: false,
