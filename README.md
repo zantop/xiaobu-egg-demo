@@ -18,11 +18,23 @@ $ open http://localhost:7001/
 ```
 
 ### 怎么实现一个接口
- 1. 在app 目录下新建一个js，命名请以数据为标准，如：user,shop...，接口定义请都参照egg.js router文档以 RESTful 风格的 URL 定义 https://eggjs.org/zh-cn/basics/router.html
+ 1. 在app 目录下新建一个js，命名请以数据为标准，如：user,shop...，接口定义请都参照egg.js router文档以 RESTful 风格的 URL 定义,具体查看[egg.js router文档](http://apidocjs.com/https://eggjs.org/zh-cn/basics/router.html)。接口注释采用apiDoc方式，请参考demo或者查看[apiDoc文档](http://apidocjs.com/)。请务必使用这种注释方式，已配置命令npm run apidoc 可以直接生成接口文档，文档目录为docs。
  ```javascript
  'use strict'; // 必须采用严格模式
 // 继承自base_controller
 const Controller = require('../core/base_controller');
+
+/**
+ * @api {post} /api/user 用户注册
+ * @apiDescription 用户注册
+ * @apiGroup  user
+ * @apiParam {String} username
+ * @apiParam {String} password
+ * @apiSuccess {Number} code 200
+ * @apiSuccess {String} state success
+ * @apiSuccess {Object} data {userInfo}
+ *
+ */
 // 定义一个class 继承base_controller
 class UserController extends Controller {
   // 新增用户
@@ -96,7 +108,7 @@ module.exports = app => {
 };
   ```
 
- 3. 在service新建一个user.js,函数注释请参照demo,具体规则请查看 http://www.css88.com/doc/jsdoc/
+ 3. 在service新建一个user.js,函数注释请参照demo,具体规则请查看 [jsdoc文档](http://www.css88.com/doc/jsdoc/)
  ```javascript
  'use strict';
 // 获取base_service
@@ -131,3 +143,22 @@ class UserService extends Service {
   router.resources('user', '/api/user', controller.user);
    ```
   5.接口测试，推荐使用Postman
+
+  ### 关于token
+  
+   - 获取token
+
+  ```JavaScript
+    // 计算token
+    const token = ctx.service.token.create({ id: res.data.id });
+    // 携带token 返回数据
+    this.successToken(res.data, token, '登陆成功');
+   ```
+   - token解析
+
+  ```JavaScript
+   //解析token并验证，传递id值过去并对比
+    const isVerify = await ctx.helper.verifyToken(ctx, id);
+    // state = success 验证成功 
+    // state = false  验证失败 失败原因(Token校验失败/Token和用户不符),在message中返回
+  ```

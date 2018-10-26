@@ -103,6 +103,7 @@ class RestfulService extends Service {
         id,
       },
     });
+    console.log(user);
     return this.success(user, '修改成功');
   }
   /**
