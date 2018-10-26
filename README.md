@@ -6,7 +6,8 @@ egg.js DEMO
 
 <!-- add docs here for user -->
 
-see [egg docs][egg] for more detail.
+查看 [egg.doc](https://eggjs.org/zh-cn/intro/) 获取更多信息.
+ 
 
 ### Development
 
@@ -17,7 +18,7 @@ $ open http://localhost:7001/
 ```
 
 ### 怎么实现一个接口
- 1. 在app 目录下新建一个js，命名请以数据为标注，如：user,shop...，接口定义请都参照egg.js router文档得 RESTful 风格的 URL 定义 https://eggjs.org/zh-cn/basics/router.html
+ 1. 在app 目录下新建一个js，命名请以数据为标准，如：user,shop...，接口定义请都参照egg.js router文档以 RESTful 风格的 URL 定义 https://eggjs.org/zh-cn/basics/router.html
  ```javascript
  'use strict'; // 必须采用严格模式
 // 继承自base_controller
@@ -129,4 +130,4 @@ class UserService extends Service {
    ```javascript
   router.resources('user', '/api/user', controller.user);
    ```
-  5.接口测试，推荐使用postMan
+  5.接口测试，推荐使用Postman

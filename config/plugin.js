@@ -15,6 +15,11 @@ exports.sequelize = {
   package: 'egg-sequelize',
 };
 
+// cors
+exports.cors = {
+  enable: true,
+  package: 'egg-cors',
+};
 // 开发阶段不用每次添加token
 exports.security = {
   enable: false,
@@ -24,4 +29,10 @@ exports.security = {
 exports.valid = {
   enable: true,
   package: 'egg-valid',
+};
+
+// token配置
+exports.jwt = {
+  enable: true,
+  package: 'egg-jwt',
 };

@@ -21,6 +21,24 @@ class RestfulService extends Service {
     return false;
   }
   /**
+   * 登陆
+   * @param {String} username - 用户名
+   * @param {String} password - 密码
+   * @return {Object} - 结果
+   */
+  async login(username, password) {
+    const user = await this.ctx.model.User.findOne({
+      where: {
+        username,
+        password,
+      },
+    });
+    if (user) {
+      return this.success(user, '登陆成功');
+    }
+    return this.error('用户名或密码错误');
+  }
+  /**
    * 注册
    * @param {String} username - 用户名
    * @param {String} password - 密码
