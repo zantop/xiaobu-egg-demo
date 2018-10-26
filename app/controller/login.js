@@ -29,7 +29,7 @@ class LoginController extends Controller {
       const { username, password } = ctx.request.body;
       const res = await user.login(username, password);
       if (res.state) {
-        const token = ctx.service.token.create({ id: res.data.id });
+        const token = ctx.createToken({ id: res.data.id });
         this.successToken(res.data, token, '登陆成功');
       } else {
         this.error(null, '用户名或密码错误');
@@ -49,8 +49,7 @@ class LoginController extends Controller {
     };
     const validator = await this.validator(ctx.request.body, rule, messages);
     if (validator) {
-      const isVerify = await ctx.helper.verifyToken(ctx, id);
-      console.log(isVerify);
+      const isVerify = await ctx.verifyToken(id);
       if (isVerify.state) {
         const res = await user.getUser(id);
         res ? this.success(res.data, '获取成功') : this.error(null, '获取失败');
