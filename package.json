@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "my egg test demo",
   "private": true,
+  "author": "wuzhoubo@yeah.net",
   "dependencies": {
     "egg": "^2.2.1",
     "egg-cors": "^2.1.1",
@@ -13,6 +14,19 @@
     "egg-view-nunjucks": "^2.2.0",
     "pg": "^7.5.0",
     "pg-hstore": "^2.3.2"
+  },
+  "apidoc": {
+    "title": "小步标注平台API文档",
+    "url" : "http://localhost:7001"
+  },
+  "template":{
+    "name": "API文档",
+    "version": "1.0.0",
+    "description": "小步标注平台",
+    "title": "小步标注平台API文档",
+    "template":{
+      "forceLanguage":"zh-cn"
+    }
   },
   "devDependencies": {
     "autod": "^3.0.1",
@@ -37,7 +51,8 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "apidoc":"apidoc -i app/controller -o docs"
   },
   "ci": {
     "version": "8"
@@ -46,6 +61,5 @@
     "type": "git",
     "url": ""
   },
-  "author": "wuzhoubo",
   "license": "MIT"
 }

@@ -4,7 +4,16 @@
 const Controller = require('../core/base_controller');
 
 class UserController extends Controller {
-  // 查
+  /**
+   * @api {get} /api/user 获取用户信息
+   * @apiDescription 根据id查询用户信息
+   * @apiGroup  user
+   * @apiParam {String} id
+   * @apiSuccess {Number} code 200
+   * @apiSuccess {String} state success
+   * @apiSuccess {Object} data {userInfo}
+   *
+   */
   async index() {
     const { ctx } = this;
     const { user } = ctx.service;
@@ -23,7 +32,17 @@ class UserController extends Controller {
     }
   }
 
-  // 增
+  /**
+   * @api {post} /api/user 用户注册
+   * @apiDescription 用户注册
+   * @apiGroup  user
+   * @apiParam {String} username
+   * @apiParam {String} password
+   * @apiSuccess {Number} code 200
+   * @apiSuccess {String} state success
+   * @apiSuccess {Object} data {userInfo}
+   *
+   */
   async create() {
     const { ctx } = this;
     const { user } = ctx.service;
@@ -51,7 +70,18 @@ class UserController extends Controller {
     }
   }
 
-  // 改
+  /**
+   * @api {put} /api/user/:id 更改用户信息
+   * @apiDescription 根据id修改用户信息
+   * @apiGroup  user
+   * @apiParam {String} id
+   * @apiParam {String} username
+   * @apiParam {String} password
+   * @apiSuccess {Number} code 200
+   * @apiSuccess {String} state success
+   * @apiSuccess {Object} data {userInfo}
+   *
+   */
   async update() {
     const { ctx } = this;
     const { user } = ctx.service;
@@ -78,7 +108,15 @@ class UserController extends Controller {
     }
   }
 
-  // 删
+  /**
+   * @api {delete} /api/user/:id 删除用户
+   * @apiDescription 根据id删除用户
+   * @apiGroup  user
+   * @apiParam {String} id
+   * @apiSuccess {Number} code 200
+   * @apiSuccess {String} state success
+   *
+   */
   async destroy() {
     const { ctx } = this;
     const { user } = ctx.service;
@@ -95,7 +133,17 @@ class UserController extends Controller {
       res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
-  // 分页
+
+  /**
+   * @api {get} /api/user/:id 分页获取用户列表
+   * @apiDescription 分页获取用户列表
+   * @apiGroup  user
+   * @apiParam {Number} page
+   * @apiParam {Number} pageSize
+   * @apiSuccess {Number} code 200
+   * @apiSuccess {String} state success
+   *
+   */
   async show() {
     const { ctx } = this;
     const { user } = ctx.service;
