@@ -1,7 +1,7 @@
 {
   "name": "xiaobu-data",
   "version": "1.0.0",
-  "description": "my egg test demo",
+  "description": "xiaobu-data-label",
   "private": true,
   "author": "wuzhoubo@yeah.net",
   "dependencies": {
@@ -13,7 +13,20 @@
     "egg-valid": "^4.1.1",
     "egg-view-nunjucks": "^2.2.0",
     "pg": "^7.5.0",
-    "pg-hstore": "^2.3.2"
+    "pg-hstore": "^2.3.2",
+    "@zeit/next-sass": "^1.0.1",
+    "antd": "^3.10.3",
+    "axios": "^0.18.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "js-cookie": "^2.2.0",
+    "next": "^7.0.2",
+    "next-page-transitions": "^1.0.0-alpha.4",
+    "node-sass": "^4.9.4",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "styled-jsx-plugin-sass": "^0.3.0",
+    "styled-components": "^3.4.4"
   },
   "apidoc": {
     "title": "小步标注平台API文档",
@@ -36,7 +49,10 @@
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
     "eslint-config-egg": "^6.0.0",
-    "webstorm-disable-index": "^1.2.0"
+    "webstorm-disable-index": "^1.2.0",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-inline-react-svg": "^1.0.1",
+    "eslint-plugin-react": "^7.11.1"
   },
   "engines": {
     "node": ">=8.9.0"
@@ -44,6 +60,7 @@
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-xiaobu-label",
     "stop": "egg-scripts stop --title=egg-server-xiaobu-label",
+    "build": "next build",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
