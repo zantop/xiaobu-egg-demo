@@ -37,7 +37,7 @@
 <body>
     <form class="login-box">
             <h3>注册</h3>
-        <input type="text" placeholder="用户名" id="username">
+        <input type="text" placeholder="用户名" id="mobile">
         <input type="text" placeholder="密码" id="password">
         <input type="button" value="注册" id="submit">
     </form>
@@ -60,7 +60,7 @@
                 url: '/api/user',
                 type: 'POST',
                 data: {
-                    username: $('#username').val(),
+                    mobile: $('#mobile').val(),
                     password: $('#password').val()
                 },
                 success(res) {

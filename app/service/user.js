@@ -6,13 +6,13 @@ class RestfulService extends Service {
   /**
    * 判断用户名是否已存在
    * @description 存在返回用户信息，不存在返回false
-   * @param {String} username - 用户名
+   * @param {String} mobile - 用户名
    * @return {Object} - 返回用户信息 / false 没有注册
    */
-  async isExist(username) {
+  async isExist(mobile) {
     const user = await this.ctx.model.User.findOne({
       where: {
-        username,
+        mobile,
       },
     });
     if (user) {
@@ -40,17 +40,17 @@ class RestfulService extends Service {
   }
   /**
    * 注册
-   * @param {String} username - 用户名
+   * @param {String} mobile - 手机号
    * @param {String} password - 密码
    * @return {Object} - 返回用户信息
    */
-  async create(username, password) {
-    const isExist = await this.isExist(username);
+  async create(mobile, password) {
+    const isExist = await this.isExist(mobile);
     if (isExist) {
       return this.error('该手机号已被注册');
     }
     const user = await this.ctx.model.User.create({
-      username,
+      mobile,
       password,
     });
     return this.success(user, '注册成功');
