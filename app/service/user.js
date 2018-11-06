@@ -27,6 +27,7 @@ class RestfulService extends Service {
    * @return {Object} - 结果
    */
   async login(username, password) {
+    console.log(this.ctx.createToken);
     const user = await this.ctx.model.User.findOne({
       where: {
         username,

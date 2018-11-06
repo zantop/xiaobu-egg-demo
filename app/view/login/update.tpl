@@ -51,15 +51,13 @@
     }
     $.ajaxSetup({
       beforeSend: function (xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-          xhr.setRequestHeader('x-csrf-token', csrftoken);
-        }
+        xhr.setRequestHeader('Authorization', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjcsImlhdCI6MTU0MDU0ODE5MiwiZXhwIjoxNTQwNTkxMzkyfQ.lFPVcMfriHQYhfmjVEDtzQtRQgD9JjgdUzjahzlMkfg");
       },
     });
     $('#submit').click(function () {
       $.ajax({
-        url: '/api/user/:id',
-        type: 'PUT',
+        url: '/getUser',
+        type: 'POST',
         data: {
           id:$("#id").val(),
           username: $('#username').val(),
