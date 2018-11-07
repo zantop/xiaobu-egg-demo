@@ -8,14 +8,9 @@ class SsrController extends Controller {
       screen: 'Home',
     });
   }
-  async error400() {
+  async notFound() {
     return this.ctx.render({
-      screen: 'errors/400',
-    });
-  }
-  async error500() {
-    return this.ctx.render({
-      screen: 'errors/500',
+      screen: '404',
     });
   }
 }

@@ -21,7 +21,9 @@ module.exports = appInfo => {
       '.tpl': 'nunjucks',
     },
   };
-
+  config.notfound = {
+    pageUrl: '/notfound',
+  };
   // http://docs.sequelizejs.com/manual/installation/getting-started.html
   // PostgresSQL
   config.sequelize = {

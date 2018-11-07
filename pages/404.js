@@ -6,10 +6,7 @@ import { Card } from 'antd'
 
 const HomeScreen = () => (
   <Card>
-    <p>Welcome</p>
-    <p>
-      <a href="javascript:">Hahaha</a>
-    </p>
+    <h3>404 NOT FOUND</h3>
   </Card>
 );
 

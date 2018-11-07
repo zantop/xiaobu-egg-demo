@@ -1,7 +1,7 @@
 'use strict';
 
 // 继承自base_controller
-const Controller = require('../core/base_controller');
+const Controller = require('../../core/base_controller');
 
 class UserController extends Controller {
   /**

@@ -2,7 +2,7 @@
 
 // Token 示例
 
-const Controller = require('../core/base_controller');
+const Controller = require('../../core/base_controller');
 
 class LoginController extends Controller {
   async index() {

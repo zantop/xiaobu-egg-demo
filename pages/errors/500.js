@@ -3,18 +3,13 @@ import PropTypes from "prop-types";
 
 import { withSSR } from "../_ssr";
 
-import Page from "../../components/Page";
-import { H1 } from "../../components/Headers";
-
 const Error500Page = ({ statusCode, error, message, ...props }) => (
-  <Page {...props}>
-    <Page.Body>
-      <H1>
-        Fatal Error {statusCode}: {error}
-      </H1>
+  <Card {...props}>
+      <h1>
+        Error {statusCode}: {error}
+      </h1>
       <p>{message}</p>
-    </Page.Body>
-  </Page>
+  </Card>
 );
 
 Error500Page.propTypes = {

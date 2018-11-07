@@ -27,6 +27,7 @@ module.exports = async function setupSSR(app) {
     return html;
   };
 
+
   // eslint-disable-next-line no-param-reassign
   app.context.renderBoomError = async function renderBoomError(err) {
     const ctx = this;
