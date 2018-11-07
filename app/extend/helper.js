@@ -17,6 +17,7 @@ module.exports = {
     token = token[0] + '.' + token[1] + strs[1] + '.' + strs[0] + token[2] + strs[2];
     return token;
   },
+
   getAccessToken(ctx) {
     const Token = ctx.request.header.authorization;
     console.log(Token);
