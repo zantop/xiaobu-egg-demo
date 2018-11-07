@@ -13,7 +13,7 @@ module.exports = appInfo => {
 
   config.middleware = [ 'errorHandler' ];
 
-  // config.keys = 'xiaobuData';
+  exports.keys = 'xiaobu-data';
   // 添加 view 配置
   config.view = {
     defaultViewEngine: 'nunjucks',

@@ -1,5 +1,5 @@
 {
-  "name": "my-egg-test",
+  "name": "xiaobu-data",
   "version": "1.0.0",
   "description": "my egg test demo",
   "private": true,
@@ -17,21 +17,21 @@
   },
   "apidoc": {
     "title": "小步标注平台API文档",
-    "url" : "http://localhost:7001"
+    "url": "http://localhost:7001"
   },
-  "template":{
+  "template": {
     "name": "API文档",
     "version": "1.0.0",
     "description": "小步标注平台",
     "title": "小步标注平台API文档",
-    "template":{
-      "forceLanguage":"zh-cn"
+    "template": {
+      "forceLanguage": "zh-cn"
     }
   },
   "devDependencies": {
     "autod": "^3.0.1",
     "autod-egg": "^1.0.0",
-    "egg-bin": "^4.3.5",
+    "egg-bin": "^4.9.0",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.14.0",
     "eslint": "^4.11.0",
@@ -42,8 +42,8 @@
     "node": ">=8.9.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-my-egg-test",
-    "stop": "egg-scripts stop --title=egg-server-my-egg-test",
+    "start": "egg-scripts start --daemon --title=egg-server-xiaobu-label",
+    "stop": "egg-scripts stop --title=egg-server-xiaobu-label",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
@@ -52,7 +52,7 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod",
-    "apidoc":"apidoc -i app/controller -o docs"
+    "apidoc": "apidoc -i app/controller -o docs"
   },
   "ci": {
     "version": "8"

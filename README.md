@@ -162,3 +162,19 @@ class UserService extends Service {
     // state = success 验证成功 
     // state = false  验证失败 失败原因(Token校验失败/Token和用户不符),在message中返回
   ```
+
+  ### 单元测试
+   为什么要单元测试
+   1. 代码质量持续有保障
+   2. 重构正确性保障
+   3. 增强自信心
+   4. 自动化运行
+  
+  单元测试代码请查看test/app/user.test.js
+
+  具体请参考文档:
+ [eggjs unittest](https://eggjs.org/zh-cn/core/unittest.html)
+ [power-assert](https://github.com/power-assert-js/power-assert)
+ [supertest](https://github.com/visionmedia/supertest)
+
+ ### 
