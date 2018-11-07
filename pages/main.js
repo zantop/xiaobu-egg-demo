@@ -5,7 +5,7 @@ class mainPage extends React.Component {
 	render() {
 		return (
 			<Layout>
-				<div>这是tab1的内容</div>
+				<div>这是tab1的内容 hahahah</div>
 			</Layout>
 		);
 	}
