@@ -25,6 +25,9 @@ class UserController extends Controller {
     const messages = {
       'id.required': '没有id',
     };
+
+    const token = ctx.helper.createToken({ id });
+    console.log(token);
     const validator = await this.validator(ctx.query, rule, messages);
     if (validator) {
       const res = await user.getUser(id);

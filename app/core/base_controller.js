@@ -31,17 +31,17 @@ class BaseController extends Controller {
     };
   }
   /**
-   * 请求并携带token
+   * 请求并携带http-only的token
    * @param {Object} data - 返回数据
    * @param {String} token - Token
    * @param {String} msg - message信息
    */
   successToken(data, token, msg) {
     const message = msg || null;
+    this.ctx.cookies.set('token', token);
     this.ctx.body = {
       state: 'success',
       code: 200,
-      token,
       message,
       data,
     };
