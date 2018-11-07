@@ -1,18 +1,18 @@
-import { Component } from 'react'
-import Link from 'next/link'
-import { Form, Icon, Input, Button, Row, Col } from 'antd'
-import request from '../utils/_http'
-const FormItem = Form.Item
+import { Component } from 'react';
+import Link from 'next/link';
+import { Form, Icon, Input, Button, Row, Col } from 'antd';
+import request from '../utils/_http';
+const FormItem = Form.Item;
 
 class RegisterComponent extends Component {
   state = {
   	CountDown: '获取验证码',
   }
   handleSubmit = (e) => {
-  	e.preventDefault()
+  	e.preventDefault();
   	this.props.form.validateFields((err, values) => {
   		if (!err) {
-  			console.log('Received values of form: ', values)
+  			console.log('Received values of form: ', values);
   			request.post('http://127.0.0.1:5432/api/register', {
   				username: values.userName,
   				password: values.password,
@@ -20,29 +20,29 @@ class RegisterComponent extends Component {
   				vcode: values.captcha,
   			})
   				.then(e => {
-  					console.log(e)
-  				})
+  					console.log(e);
+  				});
   		}
-  	})
+  	});
   }
   validatePassAgain = (rule, value, cb) => {
   	if (this.props.form.getFieldValue('password') === value) {
-  		cb()
+  		cb();
   	} else {
-  		cb('两次输入密码不一致！')
+  		cb('两次输入密码不一致！');
   	}
   }
   validateHasPhone = () => {
   	if (this.props.form.getFieldValue('phone')) {
   		this.props.form.setFields({
   			phone: { value: this.props.form.getFieldValue('phone') },
-  		})
-  		return true
+  		});
+  		return true;
   	}
   		this.props.form.setFields({
   			phone: { errors: [ new Error('请输入手机号码再获取验证码') ] },
-  		})
-  		return false
+  		});
+  		return false;
 
   }
   // 60秒倒计时
@@ -51,26 +51,26 @@ class RegisterComponent extends Component {
   		this.setState({
   			CountDown: 60,
   		}, () => {
-  			console.log(this.state.CountDown)
-  			let count = this.state.CountDown
+  			console.log(this.state.CountDown);
+  			let count = this.state.CountDown;
   			const timer = setInterval(() => {
   				this.setState({
   					CountDown: count--,
-  				})
+  				});
   				if (this.state.CountDown === 0) {
   					this.setState({
   						CountDown: '获取验证码',
-  					})
-  					clearInterval(timer)
+  					});
+  					clearInterval(timer);
   				}
-  			}, 1000)
-  		})
+  			}, 1000);
+  		});
   	} else {
-  		return
+  		return;
   	}
   }
   render() {
-  	const { getFieldDecorator } = this.props.form
+  	const { getFieldDecorator } = this.props.form;
   	return (
   		<Form layout='vertical' onSubmit={this.handleSubmit} className="login-form">
   			<FormItem className='FormItem'>
@@ -182,8 +182,8 @@ class RegisterComponent extends Component {
           `}
   			</style>
   		</Form>
-  	)
+  	);
   }
 }
-const RegisterForm = Form.create()(RegisterComponent)
-export default RegisterForm
+const RegisterForm = Form.create()(RegisterComponent);
+export default RegisterForm;

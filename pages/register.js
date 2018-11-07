@@ -1,6 +1,6 @@
-import React from 'react'
-import RegisterForm from '../components/registerComponent'
-import { Card } from 'antd'
+import React from 'react';
+import RegisterForm from '../components/registerComponent';
+import { Card } from 'antd';
 
 class RegisterPage extends React.Component {
 	render() {
@@ -34,8 +34,8 @@ class RegisterPage extends React.Component {
           `}
   			</style>
   		</div>
-  	)
+  	);
 	}
 }
 
-export default RegisterPage
+export default RegisterPage;

@@ -1,28 +1,28 @@
-import { Component } from 'react'
-import { Form, Icon, Input, Button, Row, Col } from 'antd'
-import Link from 'next/link'
-import request from '../utils/_http'
-const FormItem = Form.Item
+import { Component } from 'react';
+import { Form, Icon, Input, Button, Row, Col } from 'antd';
+import Link from 'next/link';
+import request from '../utils/_http';
+const FormItem = Form.Item;
 
 class LoginComponent extends Component {
   handleSubmit = (e) => {
-  	e.preventDefault()
+  	e.preventDefault();
   	this.props.form.validateFields((err, values) => {
   		if (!err) {
-  			console.log('Received values of form: ', values)
+  			console.log('Received values of form: ', values);
   			request.post('http://127.0.0.1:5432/api/register', {
   				username: values.userName,
   				password: values.password,
   			})
   				.then(e => {
-  					console.log(e)
-  				})
+  					console.log(e);
+  				});
   		}
-  	})
+  	});
   }
 
   render() {
-  	const { getFieldDecorator } = this.props.form
+  	const { getFieldDecorator } = this.props.form;
   	return (
   		<Form layout='vertical' onSubmit={this.handleSubmit} className="login-form">
   			<FormItem>
@@ -83,8 +83,8 @@ class LoginComponent extends Component {
           `}
   			</style>
   		</Form>
-  	)
+  	);
   }
 }
-const LoginForm = Form.create()(LoginComponent)
-export default LoginForm
+const LoginForm = Form.create()(LoginComponent);
+export default LoginForm;

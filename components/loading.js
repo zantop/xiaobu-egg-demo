@@ -23,6 +23,6 @@ const Loading = () => {
       }
     `}</style>
 		</div>
-	)
-}
-export default Loading
+	);
+};
+export default Loading;

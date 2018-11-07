@@ -1,14 +1,14 @@
-import React from 'react'
-import { Layout, Menu } from 'antd'
-const { Header, Content } = Layout
-const MenuItem = Menu.Item
+import React from 'react';
+import { Layout, Menu } from 'antd';
+const { Header, Content } = Layout;
+const MenuItem = Menu.Item;
 
 class mainPage extends React.Component {
   clickMenu = (obj) => {
-  	console.log(obj)
+  	console.log(obj);
   }
   render() {
-  	const { children } = this.props
+  	const { children } = this.props;
   	return (
   		<Layout>
   			<Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -31,8 +31,8 @@ class mainPage extends React.Component {
   				</div>
   			</Content>
   		</Layout>
-  	)
+  	);
   }
 }
 
-export default mainPage
+export default mainPage;

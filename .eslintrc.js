@@ -32,10 +32,6 @@ module.exports = {
       "error",
       "single"
     ],
-    "semi": [
-      "error",
-      "never"
-    ],
     "react/prop-types": 0,
     "no-mixed-spaces-and-tabs": 0,
     "space-before-blocks": 2,

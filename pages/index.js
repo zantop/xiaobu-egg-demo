@@ -1,6 +1,6 @@
-import React from 'react'
-import LoginForm from '../components/loginComponent'
-import { Card } from 'antd'
+import React from 'react';
+import LoginForm from '../components/loginComponent';
+import { Card } from 'antd';
 
 class Login extends React.Component {
 	render() {
@@ -34,8 +34,8 @@ class Login extends React.Component {
             `}
 				</style>
 			</div>
-		)
+		);
 	}
 }
 
-export default Login
+export default Login;

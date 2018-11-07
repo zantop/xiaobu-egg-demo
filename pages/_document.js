@@ -2,16 +2,16 @@
 // 例如componnetDidMount、componentWillUpdate，以及一些监听函数，例如 onClick、onMouseOver等------------一些公共组件我们可以写在components/layout.js
 // 所以如果你要在_document.js添加额外的组件，请确保这些组件中除了 render之外没有其他的逻辑
 
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document, { Head, Main, NextScript } from 'next/document';
 
 export default class MyDocument extends Document {
 	static getInitialProps({ renderPage }) {
 		const {
 			html, head, errorHtml, chunks,
-		} = renderPage()
+		} = renderPage();
 		return {
 			html, head, errorHtml, chunks,
-		}
+		};
 	}
 
 	render() {
@@ -27,6 +27,6 @@ export default class MyDocument extends Document {
 					<NextScript />
 				</body>
 			</html>
-		)
+		);
 	}
 }
