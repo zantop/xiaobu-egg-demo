@@ -1,2 +1,9 @@
 coverage
 docs
+build
+dist
+node_modules
+.eslintrc.js
+static
+outCDN
+out

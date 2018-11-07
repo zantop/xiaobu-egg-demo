@@ -1,22 +1,19 @@
-'use strict';
+'use strict'
 
 /**
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
-  router.resources('user', '/api/user', controller.user);
-  router.get('/', controller.home.index);
-  // token使用示例
-  router.post('/login', controller.login.index);
-  router.post('/getUser', controller.login.getUser);
+	const { router, controller } = app
+	// api
+	router.resources('user', '/api/user', controller.api.user)
 
-  // 登录页面
-  router.get('/login', controller.demo.login);
-  // 注册
-  router.get('/register', controller.demo.register);
-  // 修改信息
-  router.get('/updateUser', controller.demo.update);
-  // 删除用户
-  router.get('/deleteUser', controller.demo.delete);
-};
+	// token使用示例
+	router.post('/login', controller.api.login.index)
+	router.post('/getUser', controller.api.login.getUser)
+	// nuxt 页面路由
+	router.get('/', controller.pages.common.login)
+	router.get('/register', controller.pages.common.register)
+	router.get('/main', controller.pages.common.main)
+	router.get('/notfound', controller.pages.common.notFound)
+}

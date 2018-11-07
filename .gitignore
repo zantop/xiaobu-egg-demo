@@ -1,13 +1,26 @@
 logs/
 npm-debug.log
+yarn-debug.log*
 yarn-error.log
 node_modules/
 package-lock.json
 yarn.lock
 coverage/
 .idea/
+.next
+.next/
+out/
+build/
+outCDN
 run/
 .DS_Store
 *.sw*
 *.un~
 docs
+
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock

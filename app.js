@@ -1,3 +1,8 @@
-'use strict';
-const msg = 'hello world';
-console.log(msg);
+'use strict'
+
+const setupSSR = require('./server/ssr')
+module.exports = app => {
+	app.beforeStart(async () => {
+		await setupSSR(app)
+	})
+}

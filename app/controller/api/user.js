@@ -1,7 +1,7 @@
 'use strict';
 
 // 继承自base_controller
-const Controller = require('../core/base_controller');
+const Controller = require('../../core/base_controller');
 
 class UserController extends Controller {
   /**
@@ -47,7 +47,7 @@ class UserController extends Controller {
     const { ctx } = this;
     const { user } = ctx.service;
     const rule = {
-      username: 'required|phone',
+      mobile: 'required|phone',
       password: {
         password: {
           min: 6,
@@ -57,15 +57,15 @@ class UserController extends Controller {
     };
     // 校验 `ctx.request.body` 是否符合我们预期的格式
     const messages = {
-      'username.required': '必须填写手机号',
-      'username.phone': '请输入一个正确的手机号',
+      'mobile.required': '必须填写手机号',
+      'mobile.phone': '请输入一个正确的手机号',
       'password.password': '密码太简单了',
     };
     const validator = await this.validator(ctx.request.body, rule, messages);
     // 调用 service 创建User
     if (validator) {
-      const { username, password } = ctx.request.body;
-      const res = await user.create(username, password);
+      const { mobile, password } = ctx.request.body;
+      const res = await user.create(mobile, password);
       res.state ? this.success(res.data, res.message) : this.error(null, res.message);
     }
   }
