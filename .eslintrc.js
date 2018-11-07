@@ -24,14 +24,11 @@ module.exports = {
       "error",
       "tab"
     ],
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
     "quotes": [
       "error",
       "single"
     ],
+    "linebreak-style": 0,
     "react/prop-types": 0,
     "no-mixed-spaces-and-tabs": 0,
     "space-before-blocks": 2,
