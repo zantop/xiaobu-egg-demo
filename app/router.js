@@ -9,8 +9,10 @@ module.exports = app => {
 	router.resources('user', '/api/user', controller.api.user);
 
 	// token使用示例
-	router.post('/login', controller.api.login.index);
+	router.post('/api/login', controller.api.login.index);
+	router.post('/api/register', controller.api.login.register);
 	router.post('/getUser', controller.api.login.getUser);
+
 	// nuxt 页面路由
 	router.get('/', controller.pages.common.login);
 	router.get('/register', controller.pages.common.register);

@@ -10,8 +10,8 @@ class LoginComponent extends Component {
   	this.props.form.validateFields((err, values) => {
   		if (!err) {
   			console.log('Received values of form: ', values);
-  			request.post('http://127.0.0.1:5432/api/register', {
-  				username: values.userName,
+  			request.post('/api/login', {
+  				mobile: values.userName,
   				password: values.password,
   			})
   				.then(e => {
@@ -35,7 +35,7 @@ class LoginComponent extends Component {
   				})(
   					<Input
   						prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-  						placeholder="请输入用户名" />
+  						placeholder="请输入手机号" />
   				)}
   			</FormItem>
   			<FormItem>

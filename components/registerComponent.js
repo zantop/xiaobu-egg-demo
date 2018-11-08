@@ -13,11 +13,11 @@ class RegisterComponent extends Component {
   	this.props.form.validateFields((err, values) => {
   		if (!err) {
   			console.log('Received values of form: ', values);
-  			request.post('http://127.0.0.1:5432/api/register', {
-  				username: values.userName,
+  			request.post('/api/register', {
+  				mobile: values.phone,
   				password: values.password,
-  				phonenum: values.phone,
-  				vcode: values.captcha,
+  				// phonenum: values.phone,
+  				// vcode: values.captcha,
   			})
   				.then(e => {
   					console.log(e);
@@ -73,19 +73,42 @@ class RegisterComponent extends Component {
   	const { getFieldDecorator } = this.props.form;
   	return (
   		<Form layout='vertical' onSubmit={this.handleSubmit} className="login-form">
-  			<FormItem className='FormItem'>
-  				{getFieldDecorator('userName', {
-  					rules: [
-  						{ required: true, message: '请输入新的用户名' },
-  						{ min: 6, max: 15, message: '用户名长度在 6 到 15 个字符' },
-  					],
-  					validateTrigger: '',
-  				})(
-  					<Input
-  						prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-  						placeholder="请输入用户名" />
-  				)}
-  			</FormItem>
+		  <FormItem className='FormItem'>
+			  {getFieldDecorator('phone', {
+				  rules: [
+					  { required: true, message: '必须输入手机号码' },
+					  { pattern: /^[1][3,4,5,7,8][0-9]{9}$/, message: '填写正确的手机号' },
+				  ],
+				  validateTrigger: '',
+			  })(
+				  <Input
+					  prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />}
+					  placeholder="请输入手机号码" />
+			  )}
+		  </FormItem>
+		  {/* <FormItem className='FormItem'>
+			  <Row type="flex" justify="space-between">
+				  <Col span={12}>
+					  {getFieldDecorator('captcha', {
+						  rules: [
+							  { required: true, message: '必须输入短信验证码' },
+							  { pattern: /^[0-9]{4}$/, message: '请填写4位的验证码' },
+						  ],
+						  validateTrigger: '',
+					  })(
+						  <Input placeholder="请输入验证码"
+  							prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />}/>
+					  )}
+				  </Col>
+				  <Col style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }} span={10}>
+					  <Button
+						  onClick={this.countDownFn}
+						  style={{ width: '100%' }}>
+						  {this.state.CountDown === '获取验证码' ? this.state.CountDown : `${this.state.CountDown}s`}
+					  </Button>
+				  </Col>
+			  </Row>
+		  </FormItem> */}
   			<FormItem className='FormItem'>
   				{getFieldDecorator('password', {
   					rules: [
@@ -112,41 +135,6 @@ class RegisterComponent extends Component {
   						type="password"
   						placeholder="请确认密码" />
   				)}
-  			</FormItem>
-  			<FormItem className='FormItem'>
-  				{getFieldDecorator('phone', {
-  					rules: [
-  						{ required: true, message: '必须输入手机号码' },
-  						{ pattern: /^[1][3,4,5,7,8][0-9]{9}$/, message: '填写正确的手机号' },
-  					],
-  					validateTrigger: '',
-  				})(
-  					<Input
-  						prefix={<Icon type="mobile" style={{ color: 'rgba(0,0,0,.25)' }} />}
-  						placeholder="请输入手机号码" />
-  				)}
-  			</FormItem>
-  			<FormItem className='FormItem'>
-  				<Row type="flex" justify="space-between">
-  					<Col span={12}>
-  						{getFieldDecorator('captcha', {
-  							rules: [
-  								{ required: true, message: '必须输入短信验证码' },
-  								{ pattern: /^[0-9]{4}$/, message: '请填写4位的验证码' },
-  							],
-  							validateTrigger: '',
-  						})(
-  							<Input placeholder="请输入验证码" />
-  						)}
-  					</Col>
-  					<Col style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }} span={10}>
-  						<Button
-  							onClick={this.countDownFn}
-  							style={{ width: '100%' }}>
-  							{this.state.CountDown === '获取验证码' ? this.state.CountDown : `${this.state.CountDown}s`}
-  						</Button>
-  					</Col>
-  				</Row>
   			</FormItem>
   			<FormItem className='lastFormItem'>
   				<Button

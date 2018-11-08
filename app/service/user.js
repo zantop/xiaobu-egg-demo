@@ -1,6 +1,7 @@
 'use strict';
 
 const Service = require('../core/base_service');
+const md5 = require('md5');
 
 class RestfulService extends Service {
 	/**
@@ -22,22 +23,30 @@ class RestfulService extends Service {
 	}
 	/**
    * 登陆
-   * @param {String} username - 用户名
+   * @param {String} mobile - 手机号
    * @param {String} password - 密码
    * @return {Object} - 结果
    */
-	async login(username, password) {
-		console.log(this.ctx.createToken);
+	async login(mobile, password) {
+		const passwordMd5 = md5(password);
 		const user = await this.ctx.model.User.findOne({
 			where: {
-				username,
-				password,
+				mobile,
 			},
 		});
 		if (user) {
-			return this.success(user, '登陆成功');
+			const str1 = user.password.slice(0, 5);
+			const str2 = user.password.slice(-5);
+			const strMd5 = md5(passwordMd5 + str1 + str2);
+			const passwordData = user.password.slice(5, -5);
+			if (strMd5 === passwordData) {
+				return this.success(user, '登陆成功');
+			}
+			return this.error('密码错误');
+
 		}
-		return this.error('用户名或密码错误');
+		return this.error('不存在该用户');
+
 	}
 	/**
    * 注册
@@ -50,9 +59,14 @@ class RestfulService extends Service {
 		if (isExist) {
 			return this.error('该手机号已被注册');
 		}
+		const randomStr = this.getRandStr2();
+		const str10 = randomStr[0] + randomStr[1];
+		const passwordMd5 = md5(password); // 第一次MD5
+		const strMd5 = md5(passwordMd5 + str10); // MD5加10位随机串MD5
+		const resultPassword = randomStr[0] + strMd5 + randomStr[1]; // Md5加左右分辨加5位随机串
 		const user = await this.ctx.model.User.create({
 			mobile,
-			password,
+			password: resultPassword,
 		});
 		return this.success(user, '注册成功');
 	}
@@ -123,6 +137,20 @@ class RestfulService extends Service {
 			return this.success(users, '查询成功');
 		}
 		return this.error('没有找到用户');
+	}
+	/**
+	 * 获取5,5位随机字符串
+	 * @return {Array} - 返回两个随机字符串的数组
+	 */
+	getRandStr2() {
+		const STR = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+		let str1 = '';
+		let str2 = '';
+		for (let i = 0; i < 5; i++) {
+			str1 += STR[Math.ceil(Math.random() * 36)];
+			str2 += STR[Math.ceil(Math.random() * 36)];
+		}
+		return [ str1, str2 ];
 	}
 }
 

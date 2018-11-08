@@ -38,7 +38,10 @@ class BaseController extends Controller {
    */
 	successToken(data, token, msg) {
 		const message = msg || null;
-		this.ctx.cookies.set('token', token);
+		this.ctx.cookies.set('token', token, {
+			httpOnly: true,
+			encrypt: true, // 加密传输
+		});
 		this.ctx.body = {
 			state: 'success',
 			code: 200,
